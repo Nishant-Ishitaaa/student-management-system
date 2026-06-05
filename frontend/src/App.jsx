@@ -16,10 +16,15 @@ function App() {
   return (
     <div>
       <button onClick={getStudentData}>Get Student Data</button>
-      <h1>this is student data</h1>
-      <h3> {students.name}</h3>
-      <h3> {students.course}</h3>
-      <h3> {students.id}</h3>
+      <h1>this is student data:</h1>
+      <ul>
+   {students.map((student) => (
+        <li key={student.id}>
+           {student.name} - {student.course}
+        </li>
+        ))}
+      </ul>
+      
     </div>
   );
 }
