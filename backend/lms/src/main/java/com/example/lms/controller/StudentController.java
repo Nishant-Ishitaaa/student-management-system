@@ -1,29 +1,32 @@
 package com.example.lms.controller;
-import java.util.ArrayList;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.example.lms.model.Student;
+
 
 @RestController
 @RequestMapping("/student")
 @CrossOrigin(origins = "http://localhost:5173")
 public class StudentController {
 
-    @GetMapping
-    public ArrayList<Student> getStudents(){
-      ArrayList<Student> students = new ArrayList<>();
+     @Autowired
+    JdbcTemplate jdbcTemplate;
 
-       students.add(
-            new Student(1, "John Doe", "Computer Science")
+       @GetMapping("/count")
+    public int countStudents() {
+
+        String sql = "SELECT COUNT(*) FROM students";
+
+        return jdbcTemplate.queryForObject(
+                sql,
+                Integer.class
         );
 
-       students.add(
-        new Student(2, "Jane Smith", "Mathematics")
-    ) ; 
-
-       return students;
+       
     }
 }
