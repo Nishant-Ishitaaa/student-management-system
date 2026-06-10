@@ -12,8 +12,23 @@ public class StudentService {
     public String getStudentInfo() {
         return "This is student information.";
     }
-    public String getStudentCount() {
+    public Integer getStudentCount() {
         String sql = "SELECT COUNT(*) FROM students";
-        return jdbcTemplate.queryForObject(sql, String.class);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 }
+
+// package com.example.lms.service;
+
+// import org.springframework.stereotype.Service;
+
+// @Service
+// public class StudentService {
+
+//     public String getMessage() {
+
+//         return "Student Service Working";
+
+//     }
+
+// }
