@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+import com.example.lms.model.Student;
 
 @RestController
 @RequestMapping("/student")
@@ -21,6 +25,16 @@ public class StudentController {
     public Integer getStudentCount() {
         return studentService.getStudentCount();
     }
+
+    @GetMapping
+    public List<Student> getStudents(){
+        return studentService.getAllStudents();
+    }
+
+    @PostMapping
+public Student addStudent(@RequestBody Student student) {
+    return studentService.saveStudent(student);
+}
 }
 //      @Autowired
 //     JdbcTemplate jdbcTemplate;
