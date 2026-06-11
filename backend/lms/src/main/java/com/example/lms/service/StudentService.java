@@ -7,6 +7,11 @@ import com.example.lms.repository.StudentRepository;
 import com.example.lms.model.Student;
 import java.util.List;
 
+import com.example.lms.dto.StudentRequestDTO;
+import com.example.lms.exception.StudentNotFoundException;
+import com.example.lms.repository.StudentRepository;
+
+
 @Service
 public class StudentService {
 
@@ -28,6 +33,20 @@ public class StudentService {
         return studentRepository.findAll();
     }
     public Student saveStudent( Student student) {
+    return studentRepository.save(student);
+}
+    public Student getStudentById(Integer id) {
+        return studentRepository.findById(id)
+        .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));
+    }
+
+    public Student addStudent(StudentRequestDTO dto) {
+
+    Student student = new Student();
+    //converting request dto to entity
+    student.setName(dto.getName());
+    student.setCourse(dto.getCourse());
+
     return studentRepository.save(student);
 }
    

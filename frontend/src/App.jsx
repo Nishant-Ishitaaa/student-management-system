@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div>
-      <h1>Total Students : {count}</h1>
+      <h1>Total Students : {count} </h1>
     </div>
   );
 }
