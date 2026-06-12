@@ -9,7 +9,8 @@ import java.util.List;
 
 import com.example.lms.dto.StudentRequestDTO;
 import com.example.lms.exception.StudentNotFoundException;
-import com.example.lms.repository.StudentRepository;
+// import com.example.lms.repository.StudentRepository;
+// import com.example.lms.dto.StudentResponseDTO;
 
 
 @Service
@@ -50,19 +51,22 @@ public class StudentService {
     return studentRepository.save(student);
 }
    
+public Student updateStudent(Integer id, StudentRequestDTO dto) {
+    Student student = studentRepository.findById(id)
+        .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));   
+        
+    student.setName(dto.getName());
+    student.setCourse(dto.getCourse());
+    
+    return studentRepository.save(student);
 }
 
-// package com.example.lms.service;
+public String deleteStudent(Integer id) {
 
-// import org.springframework.stereotype.Service;
+    studentRepository.deleteById(id);
+   
+    return "Student deleted successfully with id:" + id;
+}
 
-// @Service
-// public class StudentService {
+}
 
-//     public String getMessage() {
-
-//         return "Student Service Working";
-
-//     }
-
-// }

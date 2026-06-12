@@ -4,6 +4,10 @@ public class StudentRequestDTO {
     private String name;
     private String course;
 
+     public StudentRequestDTO() {
+    }
+
+
     public StudentRequestDTO(String name, String course) {
         this.name = name;
         this.course = course;
@@ -21,5 +25,5 @@ public class StudentRequestDTO {
     public void setCourse(String course) {
         this.course = course;
     }
-    
+
 }

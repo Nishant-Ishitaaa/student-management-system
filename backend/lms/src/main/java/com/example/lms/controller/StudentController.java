@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import com.example.lms.dto.StudentRequestDTO;
 import com.example.lms.dto.StudentResponseDTO;
 // import com.example.lms.exception.StudentNotFoundException;
 // import com.example.lms.repository.StudentRepository;
+import java.util.Map;
 
 
 @RestController
@@ -63,30 +66,22 @@ public ResponseEntity<?> addStudent(@RequestBody StudentRequestDTO dto) {
 
         return ResponseEntity.ok(responseDTO);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateStudent(@PathVariable ("id") Integer id, @RequestBody StudentRequestDTO dto) {
+        Student updatedStudent = studentService.updateStudent(id, dto);
+        StudentResponseDTO responseDTO = new StudentResponseDTO(
+            updatedStudent.getId(),
+            updatedStudent.getName(),
+            updatedStudent.getCourse()
+        );
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable ("id") Integer id) {
+        String message = studentService.deleteStudent(id);
+        return ResponseEntity.ok(Map.of("message", message));
+    }       
+    
 }
-//      @Autowired
-//     JdbcTemplate jdbcTemplate;
-
-//        @GetMapping("/count")
-//     public int countStudents() {
-
-//         String sql = "SELECT COUNT(*) FROM students";
-
-//         return jdbcTemplate.queryForObject(
-//                 sql,
-//                 Integer.class
-//         );
-
-       
-//     }
-// }
-// public class StudentController {
-
-//     @Autowired
-//     private StudentService studentService;
-
-//     @GetMapping("/message")
-//     public String getMessage() {
-//         return studentService.getMessage();
-//     }
-// }
